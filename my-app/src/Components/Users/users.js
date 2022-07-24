@@ -51,60 +51,57 @@ const users = [
 ]
 
 
-// class Users extends React.Component {
+class Users extends React.Component {
 
-//     constructor() {
-//         super();
-//     }
+    constructor() {
+        super();
 
-
-//     render()
-//     {
-//         return(
-
-//             <div>
-//                 <h>Empolyee List</h>
-//                 <div className="usersDiv">
-
-//                     {/* javaScript */}
-
-//                     {
-//                        users.map((user)=>{
-//                          return <User data = {user}/>
-//                        })
-//                     }
-
-//                 </div>
-//             </div>
-//         )
-//     }
-
-// }
+        this.state={countervalue:0};
+    }
 
 
-function Users(){
-    return(
-                     <div>
-                        <h>Empolyee List</h>
-                        <div className="usersDiv">
-        
-                            {/* javaScript */}
-        
-                            {
-                               users.map((user)=>{
-                                 return <User data = {user}/>
-                               })
-                            }
-        
-                        </div>
-                    </div>
-                )
+    onIncrementCountClick(){
+
+        console.log("button click")
+
+        this.setState({countervalue:this.state.countervalue+1})
+
+    }
+
+
+    render()
+    {
+       return(
+        <div>
+            <p>CurrentValue : {this.state.countervalue}</p>
+            <button onClick={()=>this.onIncrementCountClick()}>Increment Count</button>
+        </div>
+
+       )
+
+    }
+
 }
 
 
-
-
-
-
-
 export default Users;
+
+
+
+// return(
+
+//     <div>
+//         <h>Empolyee List</h>
+//         <div className="usersDiv">
+
+//             {/* javaScript */}
+
+//             {
+//                users.map((user)=>{
+//                  return <User data = {user}/>
+//                })
+//             }
+
+//         </div>
+//     </div>
+// )
