@@ -1,84 +1,64 @@
 import React from "react";
 import User from "../User/user"
+import Spinner from 'react-bootstrap/Spinner';
 import './users.css'
-
-const users = [
-    {
-        "id":"60d0fe4f5311236168a109ca",
-        "title":"ms",
-        "firstNAme":"Sara",
-        "lastName":"Adersen",
-        "picture":"https://randomuser.me/api/portraits/women/58.jpg"
-
-    },
-    {
-        "id":"60d0fe4f5311236168a109cb",
-        "title":"miss",
-        "firstNAme":"Edita",
-        "lastName":"Vestering",
-        "picture":"https://randomuser.me/api/portraits/women/89.jpg"
-    },
-    {
-        "id":"60d0fe4f5311236168a109cc",
-        "title":"ms",
-        "firstNAme":"Adina",
-        "lastName":"Barbosa",
-        "picture":"https://randomuser.me/api/portraits/women/28.jpg"
-    },
-    {
-        "id":"60d0fe4f5311236168a109ca",
-        "title":"ms",
-        "firstNAme":"Sara",
-        "lastName":"Adersen",
-        "picture":"https://randomuser.me/api/portraits/women/58.jpg"
-
-    },
-    {
-        "id":"60d0fe4f5311236168a109cb",
-        "title":"miss",
-        "firstNAme":"Edita",
-        "lastName":"Vestering",
-        "picture":"https://randomuser.me/api/portraits/women/89.jpg"
-    },
-    {
-        "id":"60d0fe4f5311236168a109cc",
-        "title":"ms",
-        "firstNAme":"Adina",
-        "lastName":"Barbosa",
-        "picture":"https://randomuser.me/api/portraits/women/28.jpg"
-    },
-
-]
-
 
 class Users extends React.Component {
 
     constructor() {
         super();
 
-        this.state={countervalue:0};
+        this.state = { isLoading: true };
     }
 
+    componentDidMount() {
 
-    onIncrementCountClick(){
+        // API call
+        //Get the data
+        // update the user state
 
-        console.log("button click")
-
-        this.setState({countervalue:this.state.countervalue+1})
+        fetch("https://dummyapi.io/data/v1/user/", 
+        {
+            headers: 
+            {
+                 "app-id": "62c1b1b65b25e6a595ee427b"
+            }
+        }).then(data => data.json())
+            .then(data => {
+                this.setState({ isLoading: false, usersData: data.data });
+            })
 
     }
 
+    spinnner() {
+        return (
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        );
+    }
 
-    render()
-    {
-       return(
-        <div>
-            <p>CurrentValue : {this.state.countervalue}</p>
-            <button onClick={()=>this.onIncrementCountClick()}>Increment Count</button>
+    showUsers() {
+        return <div className="usersDiv">
+            {
+                this.state.usersData.map((user) => {
+                    return <User data={user} />
+                })
+            }
         </div>
+    }
 
-       )
 
+    render() {
+        return (
+            <div>
+                <p>
+                    {
+                        (this.state.isLoading) ? this.spinnner() : this.showUsers()
+                    }
+                </p>
+            </div>
+        )
     }
 
 }
@@ -88,20 +68,3 @@ export default Users;
 
 
 
-// return(
-
-//     <div>
-//         <h>Empolyee List</h>
-//         <div className="usersDiv">
-
-//             {/* javaScript */}
-
-//             {
-//                users.map((user)=>{
-//                  return <User data = {user}/>
-//                })
-//             }
-
-//         </div>
-//     </div>
-// )
