@@ -1,6 +1,6 @@
 import React from "react";
 import User from "../User/user"
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from '../Commons/Spinner/spinner';
 import './users.css'
 
 class Users extends React.Component {
@@ -21,8 +21,8 @@ class Users extends React.Component {
         {
             headers: 
             {
-                 "app-id": "62c1b1b65b25e6a595ee427b"
-            }
+                         "app-id": "62c1b1b65b25e6a595ee427b"
+         }
         }).then(data => data.json())
             .then(data => {
                 this.setState({ isLoading: false, usersData: data.data });
@@ -30,11 +30,9 @@ class Users extends React.Component {
 
     }
 
-    spinnner() {
+    showspinnner() {
         return (
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </Spinner>
+            <Spinner/>
         );
     }
 
@@ -54,7 +52,7 @@ class Users extends React.Component {
             <div>
                 <p>
                     {
-                        (this.state.isLoading) ? this.spinnner() : this.showUsers()
+                        (this.state.isLoading) ? this.showspinnner() : this.showUsers()
                     }
                 </p>
             </div>
